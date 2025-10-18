@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Nos Services</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-item>
+    <ion-input
+      placeholder="Recherche"
+      [(ngModel)]="recherche"
+      (ionInput)="filtrerServices()"
+    ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Catégorie</ion-label>
+    <ion-select [(ngModel)]="categorieSelectionnee" (ionChange)="filtrerServices()">
+      <ion-select-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Tri</ion-label>
+    <ion-select [(ngModel)]="triSelectionne" (ionChange)="filtrerServices()">
+      <ion-select-option value="nom">Par nom</ion-select-option>
+      <ion-select-option value="prix">Par prix</ion-select-option>
+      <ion-select-option value="categorie">Par catégorie</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-list>
+    <ion-card *ngFor="let service of servicesFiltres" (click)="voirDetails(service)">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon [name]="service.icone" slot="start"></ion-icon>
+          {{ service.nom }}
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        {{ service.description }}
+        <div><strong>Catégorie:</strong> {{ service.categorie }}</div>
+        <div><strong>Prix:</strong> {{ service.prix }} €</div>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+</ion-content>
